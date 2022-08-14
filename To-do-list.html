@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="stylelista.css" class="href">
+    <title>To-do list</title>
+</head>
+<body onload="init()">
+    <h1>Today:</h1>
+    <h2>Hey <span id="name"></span>, your tasks for today:</h2>
+    <ul id="taskList"></ul>
+    <input type="text" id="task"><button id="mainbtn" onclick="addTask()">New task</button>
+
+<script>
+    function init(){
+        let name = window.localStorage.getItem("name");
+        if (name === null){
+            name = window.prompt("What's your name, hun?");
+            window.localStorage.setItem("name", name);
+        }
+        document.getElementById('name').innerHTML = name;
+        showTasks();
+        
+        document.getElementById('task').addEventListener("keydown", function(e) {
+        if(e.key == 'Enter') {
+            addTask();
+        }   //zatwierdzanie enterem
+        
+    })
+    }
+    function addTask(){
+        let task = document.getElementById("task").value;
+        //window.localStorage.setItem("task", task);
+        let taskArrayString = window.localStorage.getItem("taskArray");
+        let taskArray = JSON.parse(taskArrayString);
+        if(taskArray === null) {
+            taskArray = Array();
+        }
+        taskArray.push(task);
+        taskArrayString = JSON.stringify(taskArray);
+        window.localStorage.setItem("taskArray", taskArrayString);
+        document.getElementById("task").value = "";
+        showTasks();
+
+    }
+    function showTasks(){
+        let taskArrayString = window.localStorage.getItem("taskArray");
+        let taskArray = JSON.parse(taskArrayString);
+        taskList.innerHTML = "";
+        for (let i = 0; i < taskArray.length; i++) {
+            taskList.innerHTML += "<li><button id=\'remove\'  onclick=\"removeTask("+i+")\">x</button>" + taskArray[i] + "</li>";   
+        }
+    }
+
+    function removeTask(i) {
+        let taskArrayString = window.localStorage.getItem("taskArray");
+        let taskArray = JSON.parse(taskArrayString);
+        taskArray.splice(i, 1);
+        taskArrayString = JSON.stringify(taskArray);
+        window.localStorage.setItem("taskArray", taskArrayString);
+        showTasks();
+    }
+
+    
+
+       
+</script>
+</body>
+</html>

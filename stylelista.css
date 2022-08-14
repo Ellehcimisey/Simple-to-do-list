@@ -1,0 +1,29 @@
+* {
+    background-color: whitesmoke;
+    font-family: 'Courier New', Courier, monospace;
+    list-style: none;
+    
+}
+
+button {
+    background-color: gainsboro;
+    color: rgb(73, 51, 51);
+}
+
+#remove {
+    border: none;
+    border-radius: 50%;
+    margin-right: 0.5%;
+    margin-bottom: 0.5%;
+}
+
+
+
+
+#mainbtn, input {
+    border-style: dotted;
+    margin-left: 0.5%;
+}
+
+
+
